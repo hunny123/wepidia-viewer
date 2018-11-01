@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>wikipedi</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<style>
+.ji{
+background-color:rgba(5,5,5,.9);
+color:white;
+
+}
+.31d{
+ text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}
+.r12,.b4{
+border-radius:40px;
+border:2px solid black;}
+.b12{
+background:transparent;
+border:transparent;}
+.b2{
+display:none;
+  }
+.r12{
+display:none;
+  padding:2px 4px 2px 8px;}
+.b3{
+display:none;
+background:transparent;
+border:2px solid black;}
+.cl{
+  color:purple ;
+
+  
+  margin:3px;
+}
+  .cl:hover{
+    background:rgba(0,0,0,0.8);
+    color:white !important;
+    border-left:4px solid #0066FF !important;
+  }
+  .cn1{
+    
+   background:lightgrey
+  }
+  .a1{
+    text-decoration:none;
+  }
+
+</style>
+<body>
+<div class="jumbotron ji jumbotron-fluid">
+<div class="container">
+<h1 class="31d"> Wikipedia Viewer</h1>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Wikipedia-logo-en-big.png/489px-Wikipedia-logo-en-big.png"class="float-right i12 img-fluid">
+</div>
+</div>
+<div class="jumbotron b12" >
+<div class="container-fluid">
+<h4><q>To me, searching for perfection isn't anywhere near as interesting as trying to find your own voice. 
+ :- Charlie Trotter</q></h4>
+ <div class="row">
+ <div class="col-lg-7 cn">
+ <input type ="text" class="r12 i1" placeholder=" search something"><button type="submit"class="btn b3 "><b>Search</b></button><button  class="btn b12 b1 btn-secondary"><img src="https://png.icons8.com/ios/30/e74c3c/search-filled.png" ></button>
+ <button class="btn b12 b2 btn-danger"><img src="https://png.icons8.com/ios/30/000000/close-window.png" ></button>
+ 
+ </div>
+ <div class="col-lg-5">
+   <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank"><button class="btn btn-basic float-left b4">Click for Random article</button></a>
+ </div>
+ </div>
+ 
+ 
+</div>
+</div>
+<div class="container cn1">
+</div>
+  
+<script>
+$(document).ready(function(){
+var src="https://en.wikipedia.org/?curid=";
+$(".b1").click(function(){
+
+$(".r12").show(400)
+$(".b2,.b3").show(500)
+$(".b1").hide(200)
+});
+$(".b2").click(function(){
+$(".r12").hide(400);
+$(".r12").val("");
+$(".b2,.b3").hide(500);
+$(".b1,h4,img").show(400)
+$("#qw").html("");
+});
+$(".b3").click(function(){
+$("h4,.i12").hide(300);
+$(".cn1").html("");
+var k = $(".r12").val();
+$.getJSON("https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch="+k+"&callback=?",function(a){
+var t=a.query.pages;
+var div= document.createElement("DIV");
+var i=0;
+for(x in t){
+
+var div= document.createElement("DIV");
+div.id="qw";
+url=src+t[x].pageid;
+$("#qw").addClass("bg-basic");
+$(".cn1").append(div);
+
+$("#qw").append('<a href="' + url + '"target=_blank>' + "<div><h2>"+t[x].title+"</h2>"+"<h4>"+t[x].extract+"</h4><br>" +"</div>"+ '</a>');
+$("#qw div").addClass("cl");
+  $("#qw a").addClass("a");
+}
+
+});
+
+});
+
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
